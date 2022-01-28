@@ -109,7 +109,10 @@ public class DataxJsonHelper implements DataxJsonInterface {
         } else if (ORACLE.equals(datasource)) {
             readerPlugin = new OracleReader();
             buildReader = buildReader();
-        } else if (SQL_SERVER.equals(datasource)) {
+        } else if (KINGBASE.equals(datasource)) {
+            readerPlugin = new KingBaseReader();
+            buildReader = buildReader();
+        }else if (SQL_SERVER.equals(datasource)) {
             readerPlugin = new SqlServerReader();
             buildReader = buildReader();
         } else if (POSTGRESQL.equals(datasource)) {
@@ -147,7 +150,10 @@ public class DataxJsonHelper implements DataxJsonInterface {
         } else if (ORACLE.equals(datasource)) {
             writerPlugin = new OraclelWriter();
             buildWriter = this.buildWriter();
-        } else if (JdbcConstants.SQL_SERVER.equals(datasource)) {
+        } else if (KINGBASE.equals(datasource)) {
+            writerPlugin = new KingBaseWriter();
+            buildWriter = buildWriter();
+        }else if (JdbcConstants.SQL_SERVER.equals(datasource)) {
             writerPlugin = new SqlServerlWriter();
             buildWriter = this.buildWriter();
         } else if (POSTGRESQL.equals(datasource)) {
@@ -199,6 +205,7 @@ public class DataxJsonHelper implements DataxJsonInterface {
                 return String.format("[%s]", column);
             case POSTGRESQL:
             case ORACLE:
+            case KINGBASE:
                 return String.format("\"%s\"", column);
             default:
                 return column;
@@ -220,7 +227,8 @@ public class DataxJsonHelper implements DataxJsonInterface {
         Map<String, Object> res = Maps.newLinkedHashMap();
         Map<String, Object> speedMap = Maps.newLinkedHashMap();
         Map<String, Object> errorLimitMap = Maps.newLinkedHashMap();
-        speedMap.putAll(ImmutableMap.of("channel", 3, "byte", 1048576));
+        // speedMap.putAll(ImmutableMap.of("channel", 3, "byte", 1048576));
+        speedMap.putAll(ImmutableMap.of("channel", 3));
         errorLimitMap.putAll(ImmutableMap.of("record", 0, "percentage", 0.02));
         res.put("speed", speedMap);
         res.put("errorLimit", errorLimitMap);

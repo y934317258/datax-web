@@ -23,6 +23,8 @@ public class QueryToolFactory {
             return getMySQLQueryToolInstance(jobDatasource);
         } else if (JdbcConstants.ORACLE.equals(datasource)) {
             return getOracleQueryToolInstance(jobDatasource);
+        } else if (JdbcConstants.KINGBASE.equals(datasource)) {
+            return getKingBaseQueryToolInstance(jobDatasource);
         } else if (JdbcConstants.POSTGRESQL.equals(datasource)) {
             return getPostgresqlQueryToolInstance(jobDatasource);
         } else if (JdbcConstants.SQL_SERVER.equals(datasource)) {
@@ -51,6 +53,15 @@ public class QueryToolFactory {
             return new OracleQueryTool(jdbcDatasource);
         } catch (SQLException e) {
             throw RdbmsException.asConnException(JdbcConstants.ORACLE,
+                    e,jdbcDatasource.getJdbcUsername(),jdbcDatasource.getDatasourceName());
+        }
+    }
+
+    private static BaseQueryTool getKingBaseQueryToolInstance(JobDatasource jdbcDatasource) {
+        try {
+            return new KingBaseQueryTool(jdbcDatasource);
+        } catch (SQLException e) {
+            throw RdbmsException.asConnException(JdbcConstants.KINGBASE,
                     e,jdbcDatasource.getJdbcUsername(),jdbcDatasource.getDatasourceName());
         }
     }

@@ -155,6 +155,13 @@
             <version>${postgresql.version}</version>
         </dependency>
 
+        <!-- 人大金仓 -->
+        <dependency>
+            <groupId>com.kingbase</groupId>
+            <artifactId>kingbase</artifactId>
+            <version>8.2.0</version>
+        </dependency>
+
         <dependency>
             <groupId>com.oracle</groupId>
             <artifactId>ojdbc6</artifactId>
